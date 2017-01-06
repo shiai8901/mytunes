@@ -2,11 +2,13 @@
 var LibraryView = Backbone.View.extend({
 
   tagName: 'table',
+  url: 'https://api.parse.com/1/classes/songs/',
+
 
   initialize: function() {
+    // this.collection.fetch();
     this.render();
-
-    // this.collection.on('parse', this.render, this);
+    this.collection.on('sync', this.render, this);
   },
 
 

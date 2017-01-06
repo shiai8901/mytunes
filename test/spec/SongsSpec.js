@@ -37,7 +37,9 @@ describe('Songs', function() {
 
     it('should populate itself with the data returned from the Parse server', function() {
       songs = new Songs();
+
       requests[0].respond(200, { 'Content-Type': 'application/json' }, fakeResponse);
+      console.log('songs', songs);
       expect(songs).to.have.length(2);
       expect(songs.at(0).get('title')).to.equal('Never Gonna Mock You Up');
       expect(songs.at(1).get('artist')).to.equal('BittyBacon');

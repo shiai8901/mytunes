@@ -9,8 +9,6 @@ var PlayerView = Backbone.View.extend({
     // listen to click event, and set the model to the click target songModel
 
     // listen to ended event, and set the model to the next songModel in songQueue
-    // this.on();
-
     this.el.onended = function() {
       console.log('ended', this);
       this.model.ended();
