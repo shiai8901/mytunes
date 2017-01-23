@@ -10,13 +10,16 @@ var PlayerView = Backbone.View.extend({
 
     // listen to ended event, and set the model to the next songModel in songQueue
     this.el.onended = function() {
-      console.log('ended', this);
+      // console.log('ended', this);
       this.model.ended();
     }.bind(this);
   },
 
   setSong: function(song) {
     this.model = song;
+    if (!this.model) {
+      this.el.pause();
+    }
     this.render();
   },
 

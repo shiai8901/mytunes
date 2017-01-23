@@ -11,30 +11,29 @@ var SongQueue = Backbone.Collection.extend({
       }
     }); 
 
-    this.on('ended', function() {
-      //check length is > 0 then shift the first element
-      if (this.length > 0) {
-        this.shift();
-      }
-
-      if (this.length > 0) {
-        this.playFirst();
-      }
-
-    });
-
-    this.on('dequeue', function() {
-        //check length is > 0 then shift the first element
-      if (this.length > 0) {
-        this.remove();
-      }
-    });
+    this.on('ended', this.playNext, this);
+    this.on('dequeue', this.dequeue, this);
   }, 
   
+  dequeue: function(song) {
+    if (this.at(0) === song) {
+      this.playNext();
+    } else {
+      this.remove(song);
+    }
+  },
+
+  playNext: function() {
+    this.shift();
+    if (this.length >= 1) {
+      this.playFirst();
+    } else {
+      this.trigger('stop');
+    }
+  },
 
   playFirst: function() {
     this.first().play();
-
   } 
 
 });
